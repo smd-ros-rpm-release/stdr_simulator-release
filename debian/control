@@ -1,0 +1,12 @@
+Source: ros-hydro-stdr-gui
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~), ros-hydro-catkin, ros-hydro-nav-msgs, ros-hydro-roscpp, ros-hydro-roslib, ros-hydro-sensor-msgs, ros-hydro-stdr-msgs, ros-hydro-stdr-parser, ros-hydro-stdr-robot, ros-hydro-stdr-server, ros-hydro-tf
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-hydro-stdr-gui
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-nav-msgs, ros-hydro-roscpp, ros-hydro-roslib, ros-hydro-sensor-msgs, ros-hydro-stdr-msgs, ros-hydro-stdr-parser, ros-hydro-stdr-robot, ros-hydro-stdr-server, ros-hydro-tf
+Description: A gui in Qt for visualizing purposes in STDR Simulator.
