@@ -1,0 +1,12 @@
+Source: ros-hydro-stdr-launchers
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~), ros-hydro-catkin
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-hydro-stdr-launchers
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-rviz, ros-hydro-stdr-gui, ros-hydro-stdr-robot, ros-hydro-stdr-server
+Description: Launch files, to easily bringup server, robots, guis
