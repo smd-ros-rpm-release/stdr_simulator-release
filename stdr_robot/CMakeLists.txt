@@ -11,7 +11,6 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   sensor_msgs
   nav_msgs
-  stdr_parser
 )
 
 set(CMAKE_BUILD_TYPE Release)
@@ -36,7 +35,6 @@ catkin_package(
     geometry_msgs
     sensor_msgs
     nav_msgs
-    stdr_parser
 #  DEPENDS system_lib
 )
 
@@ -98,9 +96,7 @@ install(TARGETS
 )
 
 # Install headers
-install(DIRECTORY 
-    include/${PROJECT_NAME}/motion
-    include/${PROJECT_NAME}/sensors
+install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.h"
 )
