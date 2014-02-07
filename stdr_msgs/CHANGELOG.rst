@@ -1,7 +1,0 @@
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Changelog for package stdr_msgs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-0.1.0 (2014-02-06)
-------------------
-* first public release for Hydro
