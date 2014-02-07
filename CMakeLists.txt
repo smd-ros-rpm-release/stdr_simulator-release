@@ -70,9 +70,8 @@ target_link_libraries(stdr_handle_robot ${catkin_LIBRARIES})
 add_executable(robot_handler src/handle_robot_node.cpp)
 add_dependencies(robot_handler stdr_msgs_gencpp) # wait for stdr_msgs to be build
 target_link_libraries(robot_handler 
-	${catkin_LIBRARIES}
-	stdr_handle_robot
-  stdr_parser
+  ${catkin_LIBRARIES}
+  stdr_handle_robot
 )
 
 # Install launch files
