@@ -1,0 +1,12 @@
+Source: ros-hydro-stdr-server
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~), ros-hydro-actionlib, ros-hydro-catkin, ros-hydro-map-server, ros-hydro-nav-msgs, ros-hydro-nodelet, ros-hydro-roscpp, ros-hydro-stdr-msgs, ros-hydro-tf
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-hydro-stdr-server
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-actionlib, ros-hydro-nav-msgs, ros-hydro-nodelet, ros-hydro-roscpp, ros-hydro-stdr-msgs, ros-hydro-stdr-robot, ros-hydro-tf
+Description: Implements synchronization and coordination functionalities of STDR Simulator.
