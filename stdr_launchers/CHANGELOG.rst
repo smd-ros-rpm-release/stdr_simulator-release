@@ -2,6 +2,9 @@
 Changelog for package stdr_launchers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.2 (2014-03-09)
+------------------
+
 0.1.1 (2014-02-10)
 ------------------
 * fix missing install target in stdr_launchers
