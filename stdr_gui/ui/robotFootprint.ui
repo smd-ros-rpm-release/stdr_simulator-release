@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>RobotProperties</class>
- <widget class="QWidget" name="RobotProperties">
+ <class>RobotFootprint</class>
+ <widget class="QWidget" name="RobotFootprint">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>348</width>
-    <height>124</height>
+    <height>126</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,30 +17,30 @@
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="1">
-      <widget class="QLineEdit" name="robotRadius">
+      <widget class="QLineEdit" name="robotFootprintX">
        <property name="text">
-        <string>0.15</string>
+        <string>0.0</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Robot orientation</string>
+        <string>y</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Robot radius</string>
+        <string>x</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="robotOrientation">
+      <widget class="QLineEdit" name="robotFootprintY">
        <property name="text">
-        <string>0</string>
+        <string>0.0</string>
        </property>
       </widget>
      </item>
@@ -79,8 +79,8 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>robotRadius</tabstop>
-  <tabstop>robotOrientation</tabstop>
+  <tabstop>robotFootprintX</tabstop>
+  <tabstop>robotFootprintY</tabstop>
  </tabstops>
  <resources/>
  <connections/>
