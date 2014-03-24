@@ -1,3 +1,31 @@
+## stdr_simulator (hydro) - 0.1.3-0
+
+User `chris@chris-zenbook` released the packages in the `stdr_simulator` repository into the `hydro` distro by running `/usr/bin/bloom-release stdr_simulator --track hydro --rosdistro hydro --edit` on `Mon, 24 Mar 2014 22:28:50 -0000`
+
+These packages were released:
+- `stdr_gui`
+- `stdr_launchers`
+- `stdr_msgs`
+- `stdr_parser`
+- `stdr_resources`
+- `stdr_robot`
+- `stdr_samples`
+- `stdr_server`
+- `stdr_simulator`
+
+Version of package(s) in repository `stdr_simulator`:
+- rosdistro version: `0.1.2-0`
+- old version: `0.1.2-0`
+- new version: `0.1.3-0`
+
+Versions of tools used:
+- bloom version: `0.5.2`
+- catkin_pkg version: `0.1.27`
+- rosdep version: `0.10.25`
+- rosdistro version: `0.3.4`
+- vcstools version: `0.1.33`
+
+
 ## stdr_simulator (hydro) - 0.1.2-0
 
 User `chris@chris-zenbook` released the packages in the `stdr_simulator` repository into the `hydro` distro by running `/usr/bin/bloom-release stdr_simulator --track hydro --rosdistro hydro --edit` on `Sun, 09 Mar 2014 13:56:41 -0000`
