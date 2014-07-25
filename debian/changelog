@@ -1,0 +1,57 @@
+ros-hydro-stdr-gui (0.2.0-0precise) precise; urgency=high
+
+  * Feedback added in case of double frame ids
+  * Fixes #140 <https://github.com/stdr-simulator-ros-pkg/stdr_simulator/issues/140>
+  * Added zoom movement by keyboard arrows.
+  * Fixes #146 <https://github.com/stdr-simulator-ros-pkg/stdr_simulator/issues/146>
+  * GUI application now closes with SINGINT
+  * CO2 sensors work
+  * Sound sensors working
+  * Thermal sensors are working. They return the larger temperature in their span
+  * Added dummy gui functions for sound sources
+  * Full RFID tag and readers support
+  * RFID reader visibility status works
+  * Rfid antennas visible in information tree
+  * RFID reader sensor works.
+  * Deletion of RFID tags supported
+  * Added click event in GUI for rfid tags
+  * Changed the robot label size to be equal to the frame_id size
+  * Rfid tags inserted from GUI and shown with their ids
+
+ -- Chris Zalidis <zalidis@gmail.com>  Thu, 24 Jul 2014 21:00:00 -0000
+
+ros-hydro-stdr-gui (0.1.3-0precise) precise; urgency=high
+
+  * fixed #143 <https://github.com/stdr-simulator-ros-pkg/stdr_simulator/issues/143>
+  * fixed #142 <https://github.com/stdr-simulator-ros-pkg/stdr_simulator/issues/142>
+  * fixed #125 <https://github.com/stdr-simulator-ros-pkg/stdr_simulator/issues/125>
+  * fixed #141 <https://github.com/stdr-simulator-ros-pkg/stdr_simulator/issues/141>
+  * Fixed glob in CMakeLists.txt
+  * Load and save robot in robot creator works
+  * Robot creator works with footprint points
+  * Zoom in GUI is now performed with mouse wheel
+  * Added antialiasing to robot draw in gui
+  * Polygon robots appear in gui as they should.
+
+ -- Chris Zalidis <zalidis@gmail.com>  Mon, 24 Mar 2014 22:00:00 -0000
+
+ros-hydro-stdr-gui (0.1.2-0precise) precise; urgency=high
+
+  * Minor changes. Added message when relocation is not possible.
+  * Different labels for add and create robot
+
+ -- Chris Zalidis <zalidis@gmail.com>  Sat, 08 Mar 2014 22:00:00 -0000
+
+ros-hydro-stdr-gui (0.1.1-0precise) precise; urgency=high
+
+
+
+ -- Chris Zalidis <zalidis@gmail.com>  Sun, 09 Feb 2014 22:00:00 -0000
+
+ros-hydro-stdr-gui (0.1.0-0precise) precise; urgency=high
+
+  * first public release for Hydro
+
+ -- Chris Zalidis <zalidis@gmail.com>  Wed, 05 Feb 2014 22:00:00 -0000
+
+
