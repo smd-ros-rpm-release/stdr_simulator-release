@@ -1,0 +1,41 @@
+ros-hydro-stdr-parser (0.2.0-0raring) raring; urgency=high
+
+  * Fixed #148 <https://github.com/stdr-simulator-ros-pkg/stdr_simulator/issues/148>
+  * tinyxml frees the memory itself (http://tinyxml.cvs.sourceforge.net/viewvc/tinyxml/tinyxml/tinyxml.cpp?revision=1.98&view=markup) so nothiing more to do. Closes #111 <https://github.com/stdr-simulator-ros-pkg/stdr_simulator/issues/111>
+  * Fixed partially the memory release of parser
+  * Parser support for new sensors. (thermal, sound, CO2, rfid)
+  * Fixed messageToFile, remains messageToXmlElement
+  * More support for YAML-CPP 0.5+
+
+ -- Chris Zalidis <zalidis@gmail.com>  Thu, 24 Jul 2014 21:00:00 -0000
+
+ros-hydro-stdr-parser (0.1.3-0raring) raring; urgency=high
+
+  * Load and save robot in robot creator works
+  * Add points parsing for footprints
+    This adds support for parsing a list of points for footprints:
+    * Allow multiple copies of the point tag ( only used in footprints )
+    * Add a parser specialization for geometry_msgs::Point
+    * Parse points if they appear in a footprint
+
+ -- Chris Zalidis <zalidis@gmail.com>  Mon, 24 Mar 2014 22:00:00 -0000
+
+ros-hydro-stdr-parser (0.1.2-0raring) raring; urgency=high
+
+
+
+ -- Chris Zalidis <zalidis@gmail.com>  Sat, 08 Mar 2014 22:00:00 -0000
+
+ros-hydro-stdr-parser (0.1.1-0raring) raring; urgency=high
+
+
+
+ -- Chris Zalidis <zalidis@gmail.com>  Sun, 09 Feb 2014 22:00:00 -0000
+
+ros-hydro-stdr-parser (0.1.0-0raring) raring; urgency=high
+
+  * first public release for Hydro
+
+ -- Chris Zalidis <zalidis@gmail.com>  Wed, 05 Feb 2014 22:00:00 -0000
+
+
