@@ -1,0 +1,40 @@
+ros-hydro-stdr-robot (0.2.0-0raring) raring; urgency=high
+
+  * Added CO2 sensors
+  * Added sound sensors
+  * Added thermal sensors, they return the larger temperature in their span
+  * Refactoring on stdr_robot. Removed duplicate code from derived classes.
+  * Rfid Reader robot sensor added.
+
+ -- Chris Zalidis <zalidis@gmail.com>  Thu, 24 Jul 2014 21:00:00 -0000
+
+ros-hydro-stdr-robot (0.1.3-0raring) raring; urgency=high
+
+  * Publish odometry
+  * Collision detection works decently with random shaped robots
+  * Fixed bug preventing robot from turning after collision with obstacle
+  * Removed robot's erroneous random collisions in obstacle-free space. #133 <https://github.com/stdr-simulator-ros-pkg/stdr_simulator/issues/133>
+  * Use footprint points if available.
+
+ -- Chris Zalidis <zalidis@gmail.com>  Mon, 24 Mar 2014 22:00:00 -0000
+
+ros-hydro-stdr-robot (0.1.2-0raring) raring; urgency=high
+
+  * add collision checking
+  * fix minor issues with robot reposition
+
+ -- Chris Zalidis <zalidis@gmail.com>  Sat, 08 Mar 2014 22:00:00 -0000
+
+ros-hydro-stdr-robot (0.1.1-0raring) raring; urgency=high
+
+  * fix segfault when robot goes out of map bounds
+
+ -- Chris Zalidis <zalidis@gmail.com>  Sun, 09 Feb 2014 22:00:00 -0000
+
+ros-hydro-stdr-robot (0.1.0-0raring) raring; urgency=high
+
+  * first public release for Hydro
+
+ -- Chris Zalidis <zalidis@gmail.com>  Wed, 05 Feb 2014 22:00:00 -0000
+
+
