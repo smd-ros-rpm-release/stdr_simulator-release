@@ -14,12 +14,31 @@ add_message_files(
     Noise.msg
     LaserSensorMsg.msg
     SonarSensorMsg.msg
-    RfidSensorMsg.msg
     KinematicMsg.msg
     FootprintMsg.msg
     RobotMsg.msg
     RobotIndexedMsg.msg
     RobotIndexedVectorMsg.msg
+    
+    RfidSensorMsg.msg
+    RfidSensorMeasurementMsg.msg
+    RfidTag.msg
+    RfidTagVector.msg
+    
+    SoundSensorMsg.msg
+    SoundSensorMeasurementMsg.msg
+    SoundSource.msg
+    SoundSourceVector.msg
+    
+    ThermalSensorMsg.msg
+    ThermalSensorMeasurementMsg.msg
+    ThermalSource.msg
+    ThermalSourceVector.msg
+    
+    CO2SensorMsg.msg
+    CO2SensorMeasurementMsg.msg
+    CO2Source.msg
+    CO2SourceVector.msg
 )
 
 add_service_files( 
@@ -28,6 +47,18 @@ add_service_files(
     LoadExternalMap.srv
     RegisterGui.srv
     MoveRobot.srv
+    
+    AddRfidTag.srv
+    DeleteRfidTag.srv
+    
+    AddThermalSource.srv
+    DeleteThermalSource.srv
+    
+    AddSoundSource.srv
+    DeleteSoundSource.srv
+   
+    AddCO2Source.srv
+    DeleteCO2Source.srv
 )
 
 add_action_files(

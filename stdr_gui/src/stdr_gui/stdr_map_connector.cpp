@@ -146,6 +146,9 @@ namespace stdr_gui{
     {
       if(event->type() == QEvent::MouseButtonPress)
       {
+        
+        loader_.map->setFocus(Qt::MouseFocusReason);
+        
         const QMouseEvent* const me = 
           static_cast<const QMouseEvent*>( event );
         QPoint p = me->pos();
@@ -199,6 +202,12 @@ namespace stdr_gui{
             loader_.map->setCursor(QCursor(Qt::CrossCursor));
             Q_EMIT co2PlaceSet(p);
           }
+          else if(map_state_ == SETPLACESOUND)
+          {
+            map_state_ = NORMAL;
+            loader_.map->setCursor(QCursor(Qt::CrossCursor));
+            Q_EMIT soundPlaceSet(p);
+          }
         }
       }
       else if(event->type() == QEvent::Wheel)
@@ -213,6 +222,32 @@ namespace stdr_gui{
         else
         {
           Q_EMIT zoomOutPressed(p);
+        }
+      }
+      else if(event->type() == QEvent::KeyPress)
+      {
+        const QKeyEvent* const me = 
+          static_cast<const QKeyEvent*>( event );
+        
+        if ( ! map_initialized_ )
+        {
+          return false;
+        }
+        if(me->key() == Qt::Key_Right)
+        {
+          loader_.moveDirectionally(Qt::Key_Right);
+        }
+        else if(me->key() == Qt::Key_Left)
+        {
+          loader_.moveDirectionally(Qt::Key_Left);
+        } 
+        else if(me->key() == Qt::Key_Up)
+        {
+          loader_.moveDirectionally(Qt::Key_Up);
+        }
+        else if(me->key() == Qt::Key_Down)
+        {
+          loader_.moveDirectionally(Qt::Key_Down);
         }
       }
     }
@@ -364,6 +399,20 @@ namespace stdr_gui{
       return;
     }
     map_state_ = SETPLACECO2;
+    loader_.map->setCursor(Qt::PointingHandCursor);
+  }
+  
+  /**
+  @brief Changes the map state. Waits for a sound source to be placed
+  @return void
+  **/
+  void CMapConnector::waitForSoundPlace(void)
+  {
+    if ( ! map_initialized_ )
+    {
+      return;
+    }
+    map_state_ = SETPLACESOUND;
     loader_.map->setCursor(Qt::PointingHandCursor);
   }
   
