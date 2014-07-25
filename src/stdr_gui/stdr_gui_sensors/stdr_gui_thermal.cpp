@@ -19,40 +19,40 @@
    * Chris Zalidis, zalidis@gmail.com 
 ******************************************************************************/
 
-#include "stdr_gui/stdr_gui_sensors/stdr_gui_rfid.h"
+#include "stdr_gui/stdr_gui_sensors/stdr_gui_thermal.h"
 
 namespace stdr_gui
 {
   /**
   @brief Default contructor
   **/
-  CGuiRfid::CGuiRfid(stdr_msgs::RfidSensorMsg msg,std::string baseTopic):
+  CGuiThermal::CGuiThermal(stdr_msgs::ThermalSensorMsg msg,std::string baseTopic):
     msg_(msg)
   {
     topic_ = baseTopic + "/" + msg_.frame_id;
     tf_frame_ = baseTopic + "_" + msg_.frame_id;
     ros::NodeHandle n;
     lock_ = false;
-    subscriber_ = n.subscribe(topic_.c_str(), 1, &CGuiRfid::callback,this);
+    subscriber_ = n.subscribe(topic_.c_str(), 1, &CGuiThermal::callback,this);
     visualization_status_ = 0;
   }
   
   /**
   @brief Callback for the rfid measurements message
   **/
-  void CGuiRfid::callback(const stdr_msgs::RfidSensorMeasurementMsg& msg)
+  void CGuiThermal::callback(const stdr_msgs::ThermalSensorMeasurementMsg& msg)
   {
     if(lock_)
     {
       return;
     }
-    tags_ = msg;
+    thermal_sources_ = msg;
   }
   
   /**
-  @brief Paints the rfid measurement in the map image
+  @brief Paints the sensor measurement in the map image
   **/
-  void CGuiRfid::paint(
+  void CGuiThermal::paint(
     QImage *m,
     float ocgd,
     tf::TransformListener *listener)
@@ -82,27 +82,7 @@ namespace stdr_gui
     transform.getBasis().getRPY(roll,pitch,yaw);
     float pose_theta = yaw;
     
-    //!< Draw measurement stuff
-    QBrush brush(QColor(50,100,50,75 * (2 - visualization_status_)));
-    painter.setBrush(brush);
-    
-    for(unsigned int j = 0 ; j < tags_.rfid_tags_ids.size() ; j++)
-    {
-      for(unsigned int i = 0 ; i < env_tags_.rfid_tags.size() ; i++)
-      {
-        if(tags_.rfid_tags_ids[j] == env_tags_.rfid_tags[i].tag_id)
-        {
-          int x1 = pose_x / ocgd;
-          int y1 = pose_y / ocgd;
-          int x2 = env_tags_.rfid_tags[i].pose.x / ocgd;
-          int y2 = env_tags_.rfid_tags[i].pose.y / ocgd;
-          painter.drawLine(x1, y1, x2, y2);
-          break;
-        }
-      }
-    }
-    
-    QBrush brush_cone(QColor(50,100,50, 20 * (2 - visualization_status_)));
+    QBrush brush_cone(QColor(100,50,50, 20 * (2 - visualization_status_)));
     painter.setBrush(brush_cone);
     QPen pen(QColor(0,0,0,0));
     painter.setPen(pen);
@@ -126,7 +106,7 @@ namespace stdr_gui
   /**
   @brief Default destructor
   **/
-  CGuiRfid::~CGuiRfid(void)
+  CGuiThermal::~CGuiThermal(void)
   {
 
   }
@@ -134,7 +114,7 @@ namespace stdr_gui
   /**
   @brief Returns the visibility status of the specific sensor
   **/
-  char CGuiRfid::getVisualizationStatus(void)
+  char CGuiThermal::getVisualizationStatus(void)
   {
     return visualization_status_;
   }
@@ -142,7 +122,7 @@ namespace stdr_gui
   /**
   @brief Toggles the visibility status of the specific sensor
   **/
-  void CGuiRfid::toggleVisualizationStatus(void)
+  void CGuiThermal::toggleVisualizationStatus(void)
   {
     visualization_status_ = (visualization_status_ + 1) % 3;
   }
@@ -150,7 +130,7 @@ namespace stdr_gui
   /**
   @brief Sets the visibility status of the specific sensor
   **/
-  void CGuiRfid::setVisualizationStatus(char vs)
+  void CGuiThermal::setVisualizationStatus(char vs)
   {
     visualization_status_ = vs;
   }
@@ -159,24 +139,25 @@ namespace stdr_gui
   @brief Returns the frame id of the specific sensor
   @return std::string : The sensor's frame id
   **/
-  std::string CGuiRfid::getFrameId(void)
+  std::string CGuiThermal::getFrameId(void)
   {
     return msg_.frame_id;
   }
   
   /**
   @brief Sets the tags existent in the environment
-  @param env_tags [stdr_msgs::RfidTagVector] The tag vector
+  @param env_tags [stdr_msgs::CO2SourceVector] The sources vector
   @return void
   **/
-  void CGuiRfid::setEnvironmentalTags(stdr_msgs::RfidTagVector env_tags)
+  void CGuiThermal::setEnvironmentalThermalSources(
+    stdr_msgs::ThermalSourceVector env_thermal_sources)
   {
     while(lock_)
     {
       usleep(100);
     }
     lock_ = true;
-    env_tags_ = env_tags;
+    env_thermal_sources_ = env_thermal_sources;
     lock_ = false;
   }
 }

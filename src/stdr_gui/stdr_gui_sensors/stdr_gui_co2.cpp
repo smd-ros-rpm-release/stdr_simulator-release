@@ -19,40 +19,40 @@
    * Chris Zalidis, zalidis@gmail.com 
 ******************************************************************************/
 
-#include "stdr_gui/stdr_gui_sensors/stdr_gui_rfid.h"
+#include "stdr_gui/stdr_gui_sensors/stdr_gui_co2.h"
 
 namespace stdr_gui
 {
   /**
   @brief Default contructor
   **/
-  CGuiRfid::CGuiRfid(stdr_msgs::RfidSensorMsg msg,std::string baseTopic):
+  CGuiCO2::CGuiCO2(stdr_msgs::CO2SensorMsg msg,std::string baseTopic):
     msg_(msg)
   {
     topic_ = baseTopic + "/" + msg_.frame_id;
     tf_frame_ = baseTopic + "_" + msg_.frame_id;
     ros::NodeHandle n;
     lock_ = false;
-    subscriber_ = n.subscribe(topic_.c_str(), 1, &CGuiRfid::callback,this);
+    subscriber_ = n.subscribe(topic_.c_str(), 1, &CGuiCO2::callback,this);
     visualization_status_ = 0;
   }
   
   /**
   @brief Callback for the rfid measurements message
   **/
-  void CGuiRfid::callback(const stdr_msgs::RfidSensorMeasurementMsg& msg)
+  void CGuiCO2::callback(const stdr_msgs::CO2SensorMeasurementMsg& msg)
   {
     if(lock_)
     {
       return;
     }
-    tags_ = msg;
+    co2_sources_ = msg;
   }
   
   /**
-  @brief Paints the rfid measurement in the map image
+  @brief Paints the sensor measurement in the map image
   **/
-  void CGuiRfid::paint(
+  void CGuiCO2::paint(
     QImage *m,
     float ocgd,
     tf::TransformListener *listener)
@@ -83,24 +83,24 @@ namespace stdr_gui
     float pose_theta = yaw;
     
     //!< Draw measurement stuff
-    QBrush brush(QColor(50,100,50,75 * (2 - visualization_status_)));
-    painter.setBrush(brush);
+    //~ QBrush brush(QColor(50,100,50,75 * (2 - visualization_status_)));
+    //~ painter.setBrush(brush);
     
-    for(unsigned int j = 0 ; j < tags_.rfid_tags_ids.size() ; j++)
-    {
-      for(unsigned int i = 0 ; i < env_tags_.rfid_tags.size() ; i++)
-      {
-        if(tags_.rfid_tags_ids[j] == env_tags_.rfid_tags[i].tag_id)
-        {
-          int x1 = pose_x / ocgd;
-          int y1 = pose_y / ocgd;
-          int x2 = env_tags_.rfid_tags[i].pose.x / ocgd;
-          int y2 = env_tags_.rfid_tags[i].pose.y / ocgd;
-          painter.drawLine(x1, y1, x2, y2);
-          break;
-        }
-      }
-    }
+    //~ for(unsigned int j = 0 ; j < co2_sources_.co2_sources_ids.size() ; j++)
+    //~ {
+      //~ for(unsigned int i = 0 ; i < env_co2_sources_.co2_sources.size() ; i++)
+      //~ {
+        //~ if(co2_sources_.co2_sources_ids[j] == env_co2_sources_.co2_sources[i].id)
+        //~ {
+          //~ int x1 = pose_x / ocgd;
+          //~ int y1 = pose_y / ocgd;
+          //~ int x2 = env_co2_sources_.co2_sources[i].pose.x / ocgd;
+          //~ int y2 = env_co2_sources_.co2_sources[i].pose.y / ocgd;
+          //~ painter.drawLine(x1, y1, x2, y2);
+          //~ break;
+        //~ }
+      //~ }
+    //~ }
     
     QBrush brush_cone(QColor(50,100,50, 20 * (2 - visualization_status_)));
     painter.setBrush(brush_cone);
@@ -115,10 +115,9 @@ namespace stdr_gui
       msg_.maxRange / ocgd * 2,
       msg_.maxRange / ocgd * 2,
       
-      - (pose_theta - msg_.angleSpan / 2.0)
-        * 180.0 / STDR_PI * 16,
+      - 0,
         
-      - msg_.angleSpan * 180.0 / STDR_PI * 16);
+      - 2 * 180.0 * 16);
 
     lock_ = false;
   }
@@ -126,7 +125,7 @@ namespace stdr_gui
   /**
   @brief Default destructor
   **/
-  CGuiRfid::~CGuiRfid(void)
+  CGuiCO2::~CGuiCO2(void)
   {
 
   }
@@ -134,7 +133,7 @@ namespace stdr_gui
   /**
   @brief Returns the visibility status of the specific sensor
   **/
-  char CGuiRfid::getVisualizationStatus(void)
+  char CGuiCO2::getVisualizationStatus(void)
   {
     return visualization_status_;
   }
@@ -142,7 +141,7 @@ namespace stdr_gui
   /**
   @brief Toggles the visibility status of the specific sensor
   **/
-  void CGuiRfid::toggleVisualizationStatus(void)
+  void CGuiCO2::toggleVisualizationStatus(void)
   {
     visualization_status_ = (visualization_status_ + 1) % 3;
   }
@@ -150,7 +149,7 @@ namespace stdr_gui
   /**
   @brief Sets the visibility status of the specific sensor
   **/
-  void CGuiRfid::setVisualizationStatus(char vs)
+  void CGuiCO2::setVisualizationStatus(char vs)
   {
     visualization_status_ = vs;
   }
@@ -159,24 +158,25 @@ namespace stdr_gui
   @brief Returns the frame id of the specific sensor
   @return std::string : The sensor's frame id
   **/
-  std::string CGuiRfid::getFrameId(void)
+  std::string CGuiCO2::getFrameId(void)
   {
     return msg_.frame_id;
   }
   
   /**
   @brief Sets the tags existent in the environment
-  @param env_tags [stdr_msgs::RfidTagVector] The tag vector
+  @param env_tags [stdr_msgs::CO2SourceVector] The sources vector
   @return void
   **/
-  void CGuiRfid::setEnvironmentalTags(stdr_msgs::RfidTagVector env_tags)
+  void CGuiCO2::setEnvironmentalCO2Sources(
+    stdr_msgs::CO2SourceVector env_co2_sources)
   {
     while(lock_)
     {
       usleep(100);
     }
     lock_ = true;
-    env_tags_ = env_tags;
+    env_co2_sources_ = env_co2_sources;
     lock_ = false;
   }
 }

@@ -19,12 +19,12 @@
    * Chris Zalidis, zalidis@gmail.com 
 ******************************************************************************/
 
-#ifndef STDR_GUI_RFID_CONTAINER
-#define STDR_GUI_RFID_CONTAINER
+#ifndef STDR_GUI_SOUND_CONTAINER
+#define STDR_GUI_SOUND_CONTAINER
 
 #include "stdr_gui/stdr_tools.h"
-#include "stdr_msgs/RfidSensorMsg.h"
-#include "stdr_msgs/RfidSensorMeasurementMsg.h"
+#include "stdr_msgs/SoundSensorMsg.h"
+#include "stdr_msgs/SoundSensorMeasurementMsg.h"
 
 /**
 @namespace stdr_gui
@@ -36,7 +36,7 @@ namespace stdr_gui
   @class CGuiRfid
   @brief Implements the functionalities for an RFID antenna sensor
   **/ 
-  class CGuiRfid
+  class CGuiSound
   {
     //------------------------------------------------------------------------//
     private:
@@ -44,7 +44,7 @@ namespace stdr_gui
       //!< The topic from which the new RFID tags will be got
       std::string topic_;
       //!< The description for the rfid antenna message
-      stdr_msgs::RfidSensorMsg msg_;
+      stdr_msgs::SoundSensorMsg msg_;
       //!< A ros subscriber
       ros::Subscriber subscriber_;
       //!< Used to avoid drawing when a new sonar message arives
@@ -54,10 +54,10 @@ namespace stdr_gui
       //!< Visualization status of the specific sonar
       char visualization_status_;
       //!< The stdr rfid sensor measurement msg
-      stdr_msgs::RfidSensorMeasurementMsg tags_;
+      stdr_msgs::SoundSensorMeasurementMsg sound_sources_;
       
       //!< The tags that exist in the environment
-      stdr_msgs::RfidTagVector env_tags_;
+      stdr_msgs::SoundSourceVector env_sound_sources_;
       
     //------------------------------------------------------------------------//
     public:
@@ -68,7 +68,7 @@ namespace stdr_gui
       @param baseTopic [std::string] The ros topic for subscription
       @return void
       **/
-      CGuiRfid(stdr_msgs::RfidSensorMsg msg,std::string baseTopic);
+      CGuiSound(stdr_msgs::SoundSensorMsg msg,std::string baseTopic);
       
       /**
       @brief Callback for the rfid measurement message
@@ -76,7 +76,7 @@ namespace stdr_gui
        sensor measurement message
       @return void
       **/
-      void callback(const stdr_msgs::RfidSensorMeasurementMsg& msg); 
+      void callback(const stdr_msgs::SoundSensorMeasurementMsg& msg); 
       
       /**
       @brief Paints the rfid measurements in the map image
@@ -91,7 +91,7 @@ namespace stdr_gui
       @brief Default destructor
       @return void
       **/
-      ~CGuiRfid(void);
+      ~CGuiSound(void);
       
       /**
       @brief Returns the visibility status of the specific sensor
@@ -123,7 +123,7 @@ namespace stdr_gui
       @param env_tags [stdr_msgs::RfidTagVector] The tag vector
       @return void
       **/
-      void setEnvironmentalTags(stdr_msgs::RfidTagVector env_tags);
+      void setEnvironmentalSoundSources(stdr_msgs::SoundSourceVector env_sound_sources);
   };  
 }
 
