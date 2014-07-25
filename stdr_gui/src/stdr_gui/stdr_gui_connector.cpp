@@ -91,6 +91,10 @@ namespace stdr_gui
     QObject::connect(
       loader_.actionNewCo2,SIGNAL(triggered(bool)),
       this,SLOT(actionNewCo2Triggered()));
+      
+    QObject::connect(
+      loader_.actionNewSound,SIGNAL(triggered(bool)),
+      this,SLOT(actionNewSoundTriggered()));
     
     grid_enabled_ = false;
   }
@@ -178,8 +182,7 @@ namespace stdr_gui
  are : \n\n1) to simulate easily a single robot or a swarm in a 2D\
  environment, \n2) to be totally parameterizable \n3) to be ROS\
  compliant.\n\nDevelopers:\nManos Tsardoulias, etsardou@gmail.com\
-\nAris Thallas, aris.thallas@gmail.com\nChris Zalidis,\
- zalidis@gmail.com"));
+ \nChris Zalidis,zalidis@gmail.com\nAris Thallas, aris.thallas@gmail.com"));
     msg.exec();
   }
   
@@ -218,6 +221,7 @@ namespace stdr_gui
       stdr_msgs::RobotMsg new_robot_msg = 
         stdr_parser::Parser::createMessage<stdr_msgs::RobotMsg>
           (file_name.toStdString());
+          
       Q_EMIT robotFromFile(new_robot_msg);
     }
     catch(stdr_parser::ParserException ex)
@@ -267,6 +271,19 @@ namespace stdr_gui
       return;
     }
     Q_EMIT loadCo2Pressed();
+  }
+  
+  /**
+  @brief Qt slot that is called when the NewSound tool button is pressed
+  @return void
+  **/
+  void CGuiConnector::actionNewSoundTriggered(void)
+  {
+    if ( ! map_initialized_ )
+    {
+      return;
+    }
+    Q_EMIT loadSoundPressed();
   }
   
   /**

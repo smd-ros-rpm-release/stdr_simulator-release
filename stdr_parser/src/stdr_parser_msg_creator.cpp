@@ -297,7 +297,15 @@ namespace stdr_parser
     }
     
     //!< Set up frame id based on id input
-    msg.frame_id = std::string("laser_") + SSTR(id);
+    indexes = specs->getTag("frame_id");
+    if(indexes.size() == 0)
+    {
+      msg.frame_id = std::string("laser_") + SSTR(id);
+    }
+    else
+    {
+      msg.frame_id = specs->elements[indexes[0]]->elements[0]->value;
+    }
     
     //!< Search for pose
     indexes = specs->getTag("pose");
@@ -388,7 +396,15 @@ namespace stdr_parser
     }
     
     //!< Set up frame id based on id input
-    msg.frame_id = std::string("sonar_") + SSTR(id);
+    indexes = specs->getTag("frame_id");
+    if(indexes.size() == 0)
+    {
+      msg.frame_id = std::string("sonar_") + SSTR(id);
+    }
+    else
+    {
+      msg.frame_id = specs->elements[indexes[0]]->elements[0]->value;
+    }
     
     //!< Search for pose
     indexes = specs->getTag("pose");
@@ -406,7 +422,326 @@ namespace stdr_parser
     return msg;
   }
   
+  /**
+  @brief Creates a message from a parsed file - template specialization for \
+  stdr_msgs::RfidSensorMsg
+  @param n [Node*] The root node
+  @return The message
+  **/
+  template <> stdr_msgs::RfidSensorMsg MessageCreator::createMessage(
+    Node *n,unsigned int id)
+  {
+    stdr_msgs::RfidSensorMsg msg;
+    Node* specs = n->elements[0];
+    if(specs->tag == "rfid_reader")
+    {
+      specs = specs->elements[0];
+    }
+    std::vector<int> indexes;
+    
+    //!< Search for angle span
+    indexes = specs->getTag("angle_span");
+    if(indexes.size() == 0)
+    {
+      msg.angleSpan = atof(Specs::specs["angle_span"].default_value.c_str());
+    }
+    else
+    {
+      msg.angleSpan = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+    
+    //!< Search for max range
+    indexes = specs->getTag("max_range");
+    if(indexes.size() == 0)
+    {
+      msg.maxRange = atof(Specs::specs["max_range"].default_value.c_str());
+    }
+    else
+    {
+      msg.maxRange = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+    
+    //!< Search for signal cutoff
+    indexes = specs->getTag("signal_cutoff");
+    if(indexes.size() == 0)
+    {
+      msg.signalCutoff = 
+        atof(Specs::specs["signal_cutoff"].default_value.c_str());
+    }
+    else
+    {
+      msg.signalCutoff = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+    
+    //!< Search for frequency
+    indexes = specs->getTag("frequency");
+    if(indexes.size() == 0)
+    {
+      msg.frequency = atof(Specs::specs["frequency"].default_value.c_str());
+    }
+    else
+    {
+      msg.frequency = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+
+    //!< Set up frame id based on id input
+    indexes = specs->getTag("frame_id");
+    if(indexes.size() == 0)
+    {
+      msg.frame_id = std::string("rfid_reader_") + SSTR(id);
+    }
+    else
+    {
+      msg.frame_id = specs->elements[indexes[0]]->elements[0]->value;
+    }
+    
+    //!< Search for pose
+    indexes = specs->getTag("pose");
+    if(indexes.size() != 0)
+    {
+      msg.pose = 
+        createMessage<geometry_msgs::Pose2D>(specs->elements[indexes[0]],0);
+    }
+    else
+    {
+      msg.pose.x = atof(Specs::specs["x"].default_value.c_str());
+      msg.pose.y = atof(Specs::specs["y"].default_value.c_str());
+      msg.pose.theta = atof(Specs::specs["theta"].default_value.c_str());
+    }
+    return msg;
+  }
   
+  /**
+  @brief Creates a message from a parsed file - template specialization for \
+  stdr_msgs::CO2SensorMsg
+  @param n [Node*] The root node
+  @return The message
+  **/
+  template <> stdr_msgs::CO2SensorMsg MessageCreator::createMessage(
+    Node *n,unsigned int id)
+  {
+    stdr_msgs::CO2SensorMsg msg;
+    Node* specs = n->elements[0];
+    if(specs->tag == "co2_sensor")
+    {
+      specs = specs->elements[0];
+    }
+    std::vector<int> indexes;
+    
+    //!< Search for max range
+    indexes = specs->getTag("max_range");
+    if(indexes.size() == 0)
+    {
+      msg.maxRange = atof(Specs::specs["max_range"].default_value.c_str());
+    }
+    else
+    {
+      msg.maxRange = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+    
+    //!< Search for frequency
+    indexes = specs->getTag("frequency");
+    if(indexes.size() == 0)
+    {
+      msg.frequency = atof(Specs::specs["frequency"].default_value.c_str());
+    }
+    else
+    {
+      msg.frequency = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+
+    //!< Set up frame id based on id input
+    indexes = specs->getTag("frame_id");
+    if(indexes.size() == 0)
+    {
+      msg.frame_id = std::string("co2_sensor_") + SSTR(id);
+    }
+    else
+    {
+      msg.frame_id = specs->elements[indexes[0]]->elements[0]->value;
+    }
+    
+    //!< Search for pose
+    indexes = specs->getTag("pose");
+    if(indexes.size() != 0)
+    {
+      msg.pose = 
+        createMessage<geometry_msgs::Pose2D>(specs->elements[indexes[0]],0);
+    }
+    else
+    {
+      msg.pose.x = atof(Specs::specs["x"].default_value.c_str());
+      msg.pose.y = atof(Specs::specs["y"].default_value.c_str());
+      msg.pose.theta = atof(Specs::specs["theta"].default_value.c_str());
+    }
+    return msg;
+  }
+  
+  /**
+  @brief Creates a message from a parsed file - template specialization for \
+  stdr_msgs::ThermalSensorMsg
+  @param n [Node*] The root node
+  @return The message
+  **/
+  template <> stdr_msgs::ThermalSensorMsg MessageCreator::createMessage(
+    Node *n,unsigned int id)
+  {
+    stdr_msgs::ThermalSensorMsg msg;
+    Node* specs = n->elements[0];
+    if(specs->tag == "thermal_sensor")
+    {
+      specs = specs->elements[0];
+    }
+    std::vector<int> indexes;
+    
+    //!< Search for max range
+    indexes = specs->getTag("max_range");
+    if(indexes.size() == 0)
+    {
+      msg.maxRange = atof(Specs::specs["max_range"].default_value.c_str());
+    }
+    else
+    {
+      msg.maxRange = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+    
+    //!< Search for max range
+    indexes = specs->getTag("angle_span");
+    if(indexes.size() == 0)
+    {
+      msg.angleSpan = atof(Specs::specs["angle_span"].default_value.c_str());
+    }
+    else
+    {
+      msg.angleSpan = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+    
+    //!< Search for frequency
+    indexes = specs->getTag("frequency");
+    if(indexes.size() == 0)
+    {
+      msg.frequency = atof(Specs::specs["frequency"].default_value.c_str());
+    }
+    else
+    {
+      msg.frequency = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+
+    //!< Set up frame id based on id input
+    indexes = specs->getTag("frame_id");
+    if(indexes.size() == 0)
+    {
+      msg.frame_id = std::string("thermal_sensor_") + SSTR(id);
+    }
+    else
+    {
+      msg.frame_id = specs->elements[indexes[0]]->elements[0]->value;
+    }
+    
+    //!< Search for pose
+    indexes = specs->getTag("pose");
+    if(indexes.size() != 0)
+    {
+      msg.pose = 
+        createMessage<geometry_msgs::Pose2D>(specs->elements[indexes[0]],0);
+    }
+    else
+    {
+      msg.pose.x = atof(Specs::specs["x"].default_value.c_str());
+      msg.pose.y = atof(Specs::specs["y"].default_value.c_str());
+      msg.pose.theta = atof(Specs::specs["theta"].default_value.c_str());
+    }
+    return msg;
+  }
+  
+  /**
+  @brief Creates a message from a parsed file - template specialization for \
+  stdr_msgs::SoundSensorMsg
+  @param n [Node*] The root node
+  @return The message
+  **/
+  template <> stdr_msgs::SoundSensorMsg MessageCreator::createMessage(
+    Node *n,unsigned int id)
+  {
+    stdr_msgs::SoundSensorMsg msg;
+    Node* specs = n->elements[0];
+    if(specs->tag == "sound_sensor")
+    {
+      specs = specs->elements[0];
+    }
+    std::vector<int> indexes;
+    
+    //!< Search for max range
+    indexes = specs->getTag("max_range");
+    if(indexes.size() == 0)
+    {
+      msg.maxRange = atof(Specs::specs["max_range"].default_value.c_str());
+    }
+    else
+    {
+      msg.maxRange = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+    
+    //!< Search for max range
+    indexes = specs->getTag("angle_span");
+    if(indexes.size() == 0)
+    {
+      msg.angleSpan = atof(Specs::specs["angle_span"].default_value.c_str());
+    }
+    else
+    {
+      msg.angleSpan = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+    
+    //!< Search for frequency
+    indexes = specs->getTag("frequency");
+    if(indexes.size() == 0)
+    {
+      msg.frequency = atof(Specs::specs["frequency"].default_value.c_str());
+    }
+    else
+    {
+      msg.frequency = atof(specs->elements[indexes[0]]->elements[0]->
+        value.c_str());
+    }
+
+    //!< Set up frame id based on id input
+    indexes = specs->getTag("frame_id");
+    if(indexes.size() == 0)
+    {
+      msg.frame_id = std::string("sound_sensor_") + SSTR(id);
+    }
+    else
+    {
+      msg.frame_id = specs->elements[indexes[0]]->elements[0]->value;
+    }
+    
+    //!< Search for pose
+    indexes = specs->getTag("pose");
+    if(indexes.size() != 0)
+    {
+      msg.pose = 
+        createMessage<geometry_msgs::Pose2D>(specs->elements[indexes[0]],0);
+    }
+    else
+    {
+      msg.pose.x = atof(Specs::specs["x"].default_value.c_str());
+      msg.pose.y = atof(Specs::specs["y"].default_value.c_str());
+      msg.pose.theta = atof(Specs::specs["theta"].default_value.c_str());
+    }
+    return msg;
+  }
   
   /**
   @brief Creates a message from a parsed file - template specialization for stdr_msgs::RobotMsg
@@ -470,6 +805,54 @@ namespace stdr_parser
       {
         msg.sonarSensors.push_back(
           createMessage<stdr_msgs::SonarSensorMsg>(
+            specs->elements[indexes[i]] , i));
+      }
+    }
+    
+    //!< Search for rfid reader sensors
+    indexes = specs->getTag("rfid_reader");
+    if(indexes.size() != 0)
+    {
+      for(unsigned int i = 0 ; i < indexes.size() ; i++)
+      {
+        msg.rfidSensors.push_back(
+          createMessage<stdr_msgs::RfidSensorMsg>(
+            specs->elements[indexes[i]] , i));
+      }
+    }
+    
+    //!< Search for co2 sensors
+    indexes = specs->getTag("co2_sensor");
+    if(indexes.size() != 0)
+    {
+      for(unsigned int i = 0 ; i < indexes.size() ; i++)
+      {
+        msg.co2Sensors.push_back(
+          createMessage<stdr_msgs::CO2SensorMsg>(
+            specs->elements[indexes[i]] , i));
+      }
+    }
+    
+    //!< Search for thermal sensors
+    indexes = specs->getTag("thermal_sensor");
+    if(indexes.size() != 0)
+    {
+      for(unsigned int i = 0 ; i < indexes.size() ; i++)
+      {
+        msg.thermalSensors.push_back(
+          createMessage<stdr_msgs::ThermalSensorMsg>(
+            specs->elements[indexes[i]] , i));
+      }
+    }
+    
+    //!< Search for sound sensors
+    indexes = specs->getTag("sound_sensor");
+    if(indexes.size() != 0)
+    {
+      for(unsigned int i = 0 ; i < indexes.size() ; i++)
+      {
+        msg.soundSensors.push_back(
+          createMessage<stdr_msgs::SoundSensorMsg>(
             specs->elements[indexes[i]] , i));
       }
     }
