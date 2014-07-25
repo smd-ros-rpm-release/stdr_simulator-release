@@ -19,39 +19,30 @@
    * Chris Zalidis, zalidis@gmail.com 
 ******************************************************************************/
 
-#include <signal.h>
-#include "stdr_gui/stdr_gui_controller.h"
-#include "stdr_gui/stdr_gui_application.h"
+#include "stdr_gui/stdr_robot_creator/stdr_sound_sensor_properties_loader.h"
 
-void signalHandler(int sig);
-
-/**
-@brief The main node function
-@param argc [int] Number of input arguments
-@param argv [char] The input arguments
-@return int : 0 for success
-**/
-int main(int argc,char **argv)
+namespace stdr_gui
 {
-  stdr_gui::CStdrApplication app(argc, argv);
-  app.setAttribute(Qt::AA_DontShowIconsInMenus, false);
-  ros::init(argc, argv, "stdr_gui_node", ros::init_options::NoSigintHandler);
-  stdr_gui::CGuiController con(argc, argv);
-
-  // Add custom signal handlers
-  signal(SIGTERM, signalHandler);
-  signal(SIGINT, signalHandler);
-  signal(SIGHUP, signalHandler);
+  /**
+  @brief Default contructor
+  @param argc [int] Number of input arguments
+  @param argv [char**] Input arguments
+  @return void
+  **/
+  CSoundSensorPropertiesLoader::CSoundSensorPropertiesLoader(
+    int argc, char **argv):
+    argc_(argc),
+    argv_(argv)
+  {
+    setupUi(this);
+  }
   
-  con.init();
-  app.exec();
-  return 0;
-}
-
-/**
-@brief Signal handler, kills QApplication
-**/
-void signalHandler(int sig)
-{
-  QApplication::quit();
+  /**
+  @brief Default destructor
+  @return void
+  **/
+  CSoundSensorPropertiesLoader::~CSoundSensorPropertiesLoader(void)
+  {
+    
+  }
 }
