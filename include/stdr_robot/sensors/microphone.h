@@ -19,12 +19,14 @@
    * Chris Zalidis, zalidis@gmail.com 
 ******************************************************************************/
 
-#ifndef SONAR_H
-#define SONAR_H
+#ifndef MICROPHONE_SENSOR_H
+#define MICROPHONE_SENSOR_H
 
 #include <stdr_robot/sensors/sensor_base.h>
-#include <sensor_msgs/Range.h>
-#include <stdr_msgs/SonarSensorMsg.h>
+#include <stdr_robot/sensors/helper.h>
+#include <stdr_msgs/SoundSensorMsg.h>
+#include <stdr_msgs/SoundSensorMeasurementMsg.h>
+#include <stdr_msgs/SoundSourceVector.h>
 
 /**
 @namespace stdr_robot
@@ -34,21 +36,24 @@ namespace stdr_robot {
 
   /**
   @class Sonar
-  @brief A class that provides sonar implementation. Inherits publicly Sensor
+  @brief A class that provides sound sensor implementation. \
+  Inherits publicly Sensor
   **/ 
-  class Sonar : public Sensor {
+  class SoundSensor : public Sensor {
 
     public:
       /**
       @brief Default constructor
       @param map [const nav_msgs::OccupancyGrid&] An occupancy grid map
-      @param msg [const stdr_msgs::SonarSensorMsg&] The sonar description message
+      @param msg [const stdr_msgs::SoundSensorMsg&] The sound sensor \
+      description message
       @param name [const std::string&] The sensor frame id without the base
       @param n [ros::NodeHandle&] The ROS node handle
       @return void
       **/ 
-      Sonar(const nav_msgs::OccupancyGrid& map,
-        const stdr_msgs::SonarSensorMsg& msg, 
+      SoundSensor(
+        const nav_msgs::OccupancyGrid& map,
+        const stdr_msgs::SoundSensorMsg& msg, 
         const std::string& name, 
         ros::NodeHandle& n);
       
@@ -62,12 +67,25 @@ namespace stdr_robot {
       @brief Default destructor
       @return void
       **/ 
-      ~Sonar(void);
+      ~SoundSensor(void);
+      
+      /**
+      @brief Receives the existent sound sources
+      @param msg [const stdr_msgs::SoundSourceVector&] The sound sources message
+      @return void
+      **/
+      void receiveSoundSources(const stdr_msgs::SoundSourceVector& msg);
 
     private:
 
-      //!< Sonar sensor description
-      stdr_msgs::SonarSensorMsg _description;
+      //!< sound sensor description
+      stdr_msgs::SoundSensorMsg _description;
+      
+      //!< ROS subscriber for sound sources
+      ros::Subscriber sound_sources_subscriber_;
+      
+      //!< The currently existent sources
+      stdr_msgs::SoundSourceVector sound_sources_;
   };
 
 }
