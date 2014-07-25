@@ -1,0 +1,12 @@
+Source: ros-hydro-stdr-samples
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-catkin, ros-hydro-geometry-msgs, ros-hydro-nav-msgs, ros-hydro-roscpp, ros-hydro-sensor-msgs, ros-hydro-stdr-msgs, ros-hydro-tf
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-hydro-stdr-samples
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-geometry-msgs, ros-hydro-nav-msgs, ros-hydro-roscpp, ros-hydro-sensor-msgs, ros-hydro-stdr-msgs, ros-hydro-tf
+Description: Provides sample codes to demonstrate STDR simulator functionalities.
