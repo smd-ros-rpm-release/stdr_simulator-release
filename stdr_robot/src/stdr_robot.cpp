@@ -88,16 +88,50 @@ namespace stdr_robot
     _previousPose = _currentPose;
 
     for ( unsigned int laserIter = 0;
-      laserIter < result->description.laserSensors.size(); laserIter++ ){
+      laserIter < result->description.laserSensors.size(); laserIter++ )
+    {
       _sensors.push_back( SensorPtr(
         new Laser( _map,
           result->description.laserSensors[laserIter], getName(), n ) ) );
     }
     for ( unsigned int sonarIter = 0;
-      sonarIter < result->description.sonarSensors.size(); sonarIter++ ){
+      sonarIter < result->description.sonarSensors.size(); sonarIter++ )
+    {
       _sensors.push_back( SensorPtr(
         new Sonar( _map,
           result->description.sonarSensors[sonarIter], getName(), n ) ) );
+    }
+    for ( unsigned int rfidReaderIter = 0;
+      rfidReaderIter < result->description.rfidSensors.size(); 
+        rfidReaderIter++ )
+    {
+      _sensors.push_back( SensorPtr(
+        new RfidReader( _map,
+          result->description.rfidSensors[rfidReaderIter], getName(), n ) ) );
+    }
+    for ( unsigned int co2SensorIter = 0;
+      co2SensorIter < result->description.co2Sensors.size(); 
+        co2SensorIter++ )
+    {
+      _sensors.push_back( SensorPtr(
+        new CO2Sensor( _map,
+          result->description.co2Sensors[co2SensorIter], getName(), n ) ) );
+    }
+    for ( unsigned int thermalSensorIter = 0;
+      thermalSensorIter < result->description.thermalSensors.size(); 
+        thermalSensorIter++ )
+    {
+      _sensors.push_back( SensorPtr(
+        new ThermalSensor( _map,
+          result->description.thermalSensors[thermalSensorIter], getName(), n ) ) );
+    }
+    for ( unsigned int soundSensorIter = 0;
+      soundSensorIter < result->description.soundSensors.size(); 
+        soundSensorIter++ )
+    {
+      _sensors.push_back( SensorPtr(
+        new SoundSensor( _map,
+          result->description.soundSensors[soundSensorIter], getName(), n ) ) );
     }
 
     if( result->description.footprint.points.size() == 0 ) {
@@ -418,4 +452,4 @@ namespace stdr_robot
     //!< Cleanup
   }
 
-}
+}  // namespace stdr_robot

@@ -36,6 +36,23 @@
 #include <stdr_msgs/DeleteRobotAction.h>
 #include <stdr_msgs/RobotIndexedMsg.h>
 #include <stdr_msgs/RobotIndexedVectorMsg.h>
+
+#include <stdr_msgs/RfidTagVector.h>
+#include <stdr_msgs/AddRfidTag.h>
+#include <stdr_msgs/DeleteRfidTag.h>
+
+#include <stdr_msgs/CO2SourceVector.h>
+#include <stdr_msgs/AddCO2Source.h>
+#include <stdr_msgs/DeleteCO2Source.h>
+
+#include <stdr_msgs/ThermalSourceVector.h>
+#include <stdr_msgs/AddThermalSource.h>
+#include <stdr_msgs/DeleteThermalSource.h>
+
+#include <stdr_msgs/SoundSourceVector.h>
+#include <stdr_msgs/AddSoundSource.h>
+#include <stdr_msgs/DeleteSoundSource.h>
+
 #include <nodelet/NodeletLoad.h>
 #include <nodelet/NodeletUnload.h>
 
@@ -57,6 +74,20 @@ namespace stdr_server {
     DeleteRobotServer;
 
   typedef std::map<std::string, stdr_msgs::RobotIndexedMsg> RobotMap;
+  
+  typedef std::map<std::string, stdr_msgs::RfidTag> RfidTagMap;
+  typedef std::map<std::string, stdr_msgs::RfidTag>::iterator RfidTagMapIt;
+  
+  typedef std::map<std::string, stdr_msgs::CO2Source> CO2SourceMap;
+  typedef std::map<std::string, stdr_msgs::CO2Source>::iterator CO2SourceMapIt;
+
+  typedef std::map<std::string, stdr_msgs::ThermalSource> ThermalSourceMap;
+  typedef std::map<std::string, stdr_msgs::ThermalSource>::iterator 
+    ThermalSourceMapIt;
+  
+  typedef std::map<std::string, stdr_msgs::SoundSource> SoundSourceMap;
+  typedef std::map<std::string, stdr_msgs::SoundSource>::iterator 
+    SoundSourceMapIt;
 
   /**
   @class Server
@@ -145,6 +176,89 @@ namespace stdr_server {
       **/
       bool deleteRobot(std::string name, stdr_msgs::DeleteRobotResult* result);
       
+      /**
+      @brief Service callback for adding new rfid tag to the environment
+      @param req [stdr_msgs::AddRfidTag::Request &] The request
+      @param res [stdr_msgs::AddRfidTag::Response &] The Response
+      @return bool
+      **/
+      bool addRfidTagCallback(
+        stdr_msgs::AddRfidTag::Request &req, 
+        stdr_msgs::AddRfidTag::Response &res);
+        
+      /**
+      @brief Service callback for deleting an rfid tag from the environment
+      @param req [stdr_msgs::DeleteRfidTag::Request &] The request
+      @param res [stdr_msgs::DeleteRfidTag::Response &] The Response
+      @return bool
+      **/
+      bool deleteRfidTagCallback(
+        stdr_msgs::DeleteRfidTag::Request &req, 
+        stdr_msgs::DeleteRfidTag::Response &res);
+        
+      /**
+      @brief Service callback for adding new CO2 source to the environment
+      @param req [stdr_msgs::AddCO2Source::Request &] The request
+      @param res [stdr_msgs::AddCO2Source::Response &] The Response
+      @return bool
+      **/
+      bool addCO2SourceCallback(
+        stdr_msgs::AddCO2Source::Request &req, 
+        stdr_msgs::AddCO2Source::Response &res);
+        
+      /**
+      @brief Service callback for deleting a CO2 source from the environment
+      @param req [stdr_msgs::DeleteCO2Source::Request &] The request
+      @param res [stdr_msgs::DeleteCO2Source::Response &] The Response
+      @return bool
+      **/
+      bool deleteCO2SourceCallback(
+        stdr_msgs::DeleteCO2Source::Request &req, 
+        stdr_msgs::DeleteCO2Source::Response &res);
+        
+      /**
+      @brief Service callback for adding new thermal source to the environment
+      @param req [stdr_msgs::AddThermalSource::Request &] The request
+      @param res [stdr_msgs::AddThermalSource::Response &] The Response
+      @return bool
+      **/
+      bool addThermalSourceCallback(
+        stdr_msgs::AddThermalSource::Request &req, 
+        stdr_msgs::AddThermalSource::Response &res);
+        
+      /**
+      @brief Service callback for deleting a thermal source from the environment
+      @param req [stdr_msgs::DeleteThermalSource::Request &] The request
+      @param res [stdr_msgs::DeleteThermalSource::Response &] The Response
+      @return bool
+      **/
+      bool deleteThermalSourceCallback(
+        stdr_msgs::DeleteThermalSource::Request &req, 
+        stdr_msgs::DeleteThermalSource::Response &res);
+      
+      /**
+      @brief Service callback for adding new sound source to the environment
+      @param req [stdr_msgs::AddSoundSource::Request &] The request
+      @param res [stdr_msgs::AddSoundSource::Response &] The Response
+      @return bool
+      **/
+      bool addSoundSourceCallback(
+        stdr_msgs::AddSoundSource::Request &req, 
+        stdr_msgs::AddSoundSource::Response &res);
+        
+      /**
+      @brief Service callback for deleting a sound source from the environment
+      @param req [stdr_msgs::DeleteSoundSource::Request &] The request
+      @param res [stdr_msgs::DeleteSoundSource::Response &] The Response
+      @return bool
+      **/
+      bool deleteSoundSourceCallback(
+        stdr_msgs::DeleteSoundSource::Request &req, 
+        stdr_msgs::DeleteSoundSource::Response &res);
+        
+      bool hasDublicateFrameIds(const stdr_msgs::RobotMsg& robot, 
+        std::string &f_id);
+      
     private:
     
       //!< THe ROS node handle
@@ -178,10 +292,47 @@ namespace stdr_server {
       //!< Index that shows the next robot id
       int _id;
       
+      //!< An std::map that contains the rfid tags existent in the environment
+      RfidTagMap _rfidTagMap;
+      //!< An std::map that contains the CO2 sources existent in the environment
+      CO2SourceMap _CO2SourceMap;
+      //!< An std::map that contains the thermal sources existent in the environment
+      ThermalSourceMap _thermalSourceMap;
+      //!< An std::map that contains the sound sources existent in the environment
+      SoundSourceMap _soundSourceMap;
+      
       //!< Boost mutex for conflict avoidance
       boost::mutex _mut;
       //!< Boost condition variable for conflicting avoidance
       boost::condition_variable cond;
+      
+      //!< The addRfidTag srv server
+      ros::ServiceServer _addRfidTagServiceServer;
+      //!< The deleteRfidTag srv server
+      ros::ServiceServer _deleteRfidTagServiceServer;
+      //!< The rfid tag list publisher
+      ros::Publisher _rfidTagVectorPublisher;
+      
+      //!< The addCO2Source srv server
+      ros::ServiceServer _addCO2SourceServiceServer;
+      //!< The deleteCO2Source srv server
+      ros::ServiceServer _deleteCO2SourceServiceServer;
+      //!< The CO2 source list publisher
+      ros::Publisher _CO2SourceVectorPublisher;
+      
+      //!< The addThermalSource srv server
+      ros::ServiceServer _addThermalSourceServiceServer;
+      //!< The deleteThermalSource srv server
+      ros::ServiceServer _deleteThermalSourceServiceServer;
+      //!< The thermal source list publisher
+      ros::Publisher _thermalSourceVectorPublisher;
+      
+      //!< The addSoundSource srv server
+      ros::ServiceServer _addSoundSourceServiceServer;
+      //!< The deleteSoundSource srv server
+      ros::ServiceServer _deleteSoundSourceServiceServer;
+      //!< The sound source list publisher
+      ros::Publisher _soundSourceVectorPublisher;
   };
 }
 
