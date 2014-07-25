@@ -18,10 +18,8 @@
    * Aris Thallas, aris.thallas@gmail.com
    * Chris Zalidis, zalidis@gmail.com 
 ******************************************************************************/
-
-
-#ifndef STDR_GUI_THERMAL_SOURCE_CONTAINER
-#define STDR_GUI_THERMAL_SOURCE_CONTAINER
+#ifndef STDR_GUI_SOUND_SOURCE_CONTAINER
+#define STDR_GUI_SOUND_SOURCE_CONTAINER
 
 #include "stdr_gui/stdr_tools.h"
 
@@ -32,10 +30,10 @@
 namespace stdr_gui
 {
   /**
-  @class CGuiThermalSource
-  @brief Implements the functionalities of a thermal source
+  @class CGuiSoundSource
+  @brief Implements the functionalities of a sound source
   **/ 
-  class CGuiThermalSource
+  class CGuiSoundSource
   {
     //------------------------------------------------------------------------//
     private:
@@ -44,7 +42,7 @@ namespace stdr_gui
       //!< The "name" of the rfid tag 
       std::string name_;  
       //!< The message of the rfid tag
-      float degrees_;
+      float db_;
       //!< The OGM resolution
       float resolution_;
     //------------------------------------------------------------------------//
@@ -56,13 +54,13 @@ namespace stdr_gui
       @param resolution [float] The map's resolution
       @return void
       **/
-      CGuiThermalSource(QPoint p,std::string name, float resolution);
+      CGuiSoundSource(QPoint p,std::string name, float resolution);
       
       /**
       @brief Default destructor
       @return void
       **/
-      ~CGuiThermalSource(void);
+      ~CGuiSoundSource(void);
       
       /**
       @brief Returns the "name" of the rfid tag
@@ -89,14 +87,15 @@ namespace stdr_gui
       @param msg [QString] The message to be set
       @return void
       **/
-      void setDegrees(float degrees);
+      void setDb(float db);
       
       /**
       @brief Returns the tag message
       @return QString
       **/
-      float getDegrees(void);
+      float getDb(void);
   };  
 }
 
 #endif
+

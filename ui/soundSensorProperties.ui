@@ -1,61 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>RfidAntennaProperties</class>
- <widget class="QWidget" name="RfidAntennaProperties">
+ <class>SoundSensorProperties</class>
+ <widget class="QWidget" name="SoundSensorProperties">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>289</width>
-    <height>280</height>
+    <height>247</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RFID Antenna</string>
+   <string>Sound sensor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="rfidY">
-       <property name="text">
-        <string>0.0</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="rfidAngleSpan">
+      <widget class="QLineEdit" name="angleSpan">
        <property name="text">
         <string>360</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="rfidSignalCutoff">
-       <property name="text">
-        <string>0.3</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="rfidMaxDistance">
+      <widget class="QLineEdit" name="maxDistance">
        <property name="text">
         <string>3.0</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Signal prob. cutoff</string>
-       </property>
-      </widget>
-     </item>
      <item row="4" column="1">
-      <widget class="QLineEdit" name="rfidX">
+      <widget class="QLineEdit" name="y_">
        <property name="text">
         <string>0.0</string>
        </property>
@@ -64,7 +40,17 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="x_">
+       <property name="text">
+        <string>0.0</string>
+       </property>
+       <property name="readOnly">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
       <widget class="QLabel" name="label_5">
        <property name="text">
         <string>Translation - y (m)</string>
@@ -78,7 +64,7 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Translation - x (m)</string>
@@ -100,17 +86,17 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="rfidOrientation"/>
+      <widget class="QLineEdit" name="orientation"/>
      </item>
-     <item row="6" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="label_7">
        <property name="text">
         <string>Frequency</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QLineEdit" name="rfidFrequency"/>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="frequency"/>
      </item>
     </layout>
    </item>
@@ -130,7 +116,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="refreshRfid">
+      <widget class="QPushButton" name="refreshButton">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -153,15 +139,14 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>rfidAngleSpan</tabstop>
-  <tabstop>rfidOrientation</tabstop>
-  <tabstop>rfidMaxDistance</tabstop>
-  <tabstop>rfidSignalCutoff</tabstop>
-  <tabstop>rfidX</tabstop>
-  <tabstop>rfidY</tabstop>
-  <tabstop>rfidFrequency</tabstop>
+  <tabstop>angleSpan</tabstop>
+  <tabstop>orientation</tabstop>
+  <tabstop>maxDistance</tabstop>
+  <tabstop>x_</tabstop>
+  <tabstop>y_</tabstop>
+  <tabstop>frequency</tabstop>
   <tabstop>pushButton</tabstop>
-  <tabstop>refreshRfid</tabstop>
+  <tabstop>refreshButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

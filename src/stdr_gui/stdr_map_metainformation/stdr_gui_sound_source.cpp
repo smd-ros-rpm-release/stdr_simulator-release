@@ -18,23 +18,22 @@
    * Aris Thallas, aris.thallas@gmail.com
    * Chris Zalidis, zalidis@gmail.com 
 ******************************************************************************/
-
-#include "stdr_gui/stdr_map_metainformation/stdr_gui_thermal_source.h"
+  
+#include "stdr_gui/stdr_map_metainformation/stdr_gui_sound_source.h"
 
 namespace stdr_gui{
-   
+  
   /**
   @brief Default contructor
   @param p [QPoint] The pose of the rfid tag
   @param name [std::string] The "name" of the rfid tag
   @return void
   **/
-  CGuiThermalSource::CGuiThermalSource(
-    QPoint p,std::string name, float resolution):
-      position_(p),
-      name_(name),
-      resolution_(resolution),
-      degrees_(0.0)
+  CGuiSoundSource::CGuiSoundSource(QPoint p,std::string name, float resolution):
+    position_(p),
+    name_(name),
+    resolution_(resolution),
+    db_(0.0)
   {
   
   }
@@ -43,7 +42,7 @@ namespace stdr_gui{
   @brief Default destructor
   @return void
   **/
-  CGuiThermalSource::~CGuiThermalSource(void)
+  CGuiSoundSource::~CGuiSoundSource(void)
   {
 
   }
@@ -52,7 +51,7 @@ namespace stdr_gui{
   @brief Returns the "name" of the rfid tag
   @return std::string 
   **/
-  std::string CGuiThermalSource::getName(void)
+  std::string CGuiSoundSource::getName(void)
   {
     return name_;
   }
@@ -62,7 +61,7 @@ namespace stdr_gui{
   @param p [QPoint] The proximity point to check
   @return bool : True if tag is close to p
   **/
-  bool CGuiThermalSource::checkProximity(QPoint p)
+  bool CGuiSoundSource::checkProximity(QPoint p)
   {
     float dx = p.x() * resolution_ - position_.x() * resolution_;
     float dy = p.y() * resolution_ - position_.y() * resolution_;
@@ -75,11 +74,11 @@ namespace stdr_gui{
   @param img [QImage*] The image to draw to
   @return void
   **/
-  void CGuiThermalSource::draw(QImage *img)
+  void CGuiSoundSource::draw(QImage *img)
   {
     QPainter painter(img);
     int step = 3;
-    painter.setPen(QColor(200, 0, 0, 200));
+    painter.setPen(QColor(0,200,0,200));
     for(unsigned int i = 0 ; i < 4 ; i++)
     {
       painter.drawEllipse(
@@ -93,6 +92,7 @@ namespace stdr_gui{
     
     int text_size = name_.size();
     
+    //~ painter.setPen(QColor(0,0,0,100 * (2 - visualization_status_)));
     painter.setPen(QColor(0,0,0,100 * (2)));
     
     painter.drawRect(
@@ -101,6 +101,7 @@ namespace stdr_gui{
       3 + text_size * 9,
       20);
     
+    //~ painter.setPen(QColor(255,255,255,100 * (2 - visualization_status_)));
     painter.setPen(QColor(255,255,255,100 * (2)));
     
     painter.fillRect(
@@ -109,6 +110,7 @@ namespace stdr_gui{
       3 + text_size * 9,
       20,
       QBrush(QColor(0,0,0,100 * (2))));
+      //~ QBrush(QColor(0,0,0,100 * (2 - visualization_status_))));
     
     painter.setFont(QFont("Courier New"));
     painter.drawText(
@@ -122,18 +124,18 @@ namespace stdr_gui{
   @param msg [QString] The message to be set
   @return void
   **/
-  void CGuiThermalSource::setDegrees(float degrees)
+  void CGuiSoundSource::setDb(float db)
   {
-    degrees_ = degrees;
+    db_ = db;
   }
   
   /**
   @brief Returns the tag message
   @return QString
   **/
-  float CGuiThermalSource::getDegrees(void)
+  float CGuiSoundSource::getDb(void)
   {
-    return degrees_;
+    return db_;
   }
 }
 
