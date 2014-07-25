@@ -83,6 +83,309 @@ namespace stdr_server {
     _robotsPublisher = 
       _nh.advertise<stdr_msgs::RobotIndexedVectorMsg>
         ("stdr_server/active_robots", 10, true);
+        
+    //!< Rfid tags    
+        
+    _addRfidTagServiceServer = _nh.advertiseService("stdr_server/add_rfid_tag",
+      &Server::addRfidTagCallback, this);
+      
+    _deleteRfidTagServiceServer = 
+      _nh.advertiseService("stdr_server/delete_rfid_tag",
+      &Server::deleteRfidTagCallback, this);
+      
+    _rfidTagVectorPublisher = _nh.advertise<stdr_msgs::RfidTagVector>(
+      "stdr_server/rfid_list", 1, true);
+      
+    //!< CO2 sources    
+        
+    _addCO2SourceServiceServer = _nh.advertiseService(
+      "stdr_server/add_co2_source",
+      &Server::addCO2SourceCallback, this);
+      
+    _deleteCO2SourceServiceServer = 
+      _nh.advertiseService("stdr_server/delete_co2_source",
+      &Server::deleteCO2SourceCallback, this);
+      
+    _CO2SourceVectorPublisher = _nh.advertise<stdr_msgs::CO2SourceVector>(
+      "stdr_server/co2_sources_list", 1, true);
+      
+    //!< Thermal sources    
+        
+    _addThermalSourceServiceServer = _nh.advertiseService(
+      "stdr_server/add_thermal_source",
+      &Server::addThermalSourceCallback, this);
+      
+    _deleteThermalSourceServiceServer = 
+      _nh.advertiseService("stdr_server/delete_thermal_source",
+      &Server::deleteThermalSourceCallback, this);
+      
+    _thermalSourceVectorPublisher = 
+      _nh.advertise<stdr_msgs::ThermalSourceVector>(
+      "stdr_server/thermal_sources_list", 1, true);
+    
+    //!< Sound sources    
+        
+    _addSoundSourceServiceServer = _nh.advertiseService(
+      "stdr_server/add_sound_source",
+      &Server::addSoundSourceCallback, this);
+      
+    _deleteSoundSourceServiceServer = 
+      _nh.advertiseService("stdr_server/delete_sound_source",
+      &Server::deleteSoundSourceCallback, this);
+      
+    _soundSourceVectorPublisher = _nh.advertise<stdr_msgs::SoundSourceVector>(
+      "stdr_server/sound_sources_list", 1, true);
+  }
+  
+  /**
+  @brief Service callback for adding new rfid tag to the environment
+  **/
+  bool Server::addRfidTagCallback(
+    stdr_msgs::AddRfidTag::Request &req, 
+    stdr_msgs::AddRfidTag::Response &res)
+  {
+    //!< Sanity check for the RFID tag
+    stdr_msgs::RfidTag new_rfid = req.newTag;
+    if(_rfidTagMap.find(new_rfid.tag_id) != _rfidTagMap.end())
+    { //!< A rfid tag exists with the same tag_id
+      res.success = false;
+      res.message = "Duplicate rfid_id";
+      return false;
+    }
+    
+    //!< Add RFID tag to the environment 
+    _rfidTagMap.insert(std::pair<std::string, stdr_msgs::RfidTag>(
+      new_rfid.tag_id, new_rfid));
+    
+    //!< Publish the new RFID tag list
+    stdr_msgs::RfidTagVector rfidTagList;
+    for(RfidTagMapIt it = _rfidTagMap.begin() ; it != _rfidTagMap.end() ; it++)
+    {
+      rfidTagList.rfid_tags.push_back(it->second);
+    }
+    _rfidTagVectorPublisher.publish(rfidTagList);
+
+    //!< Return success
+    res.success = true;
+    return true;
+  }
+  
+  /**
+  @brief Service callback for adding new CO2 source to the environment
+  **/
+  bool Server::addCO2SourceCallback(
+    stdr_msgs::AddCO2Source::Request &req, 
+    stdr_msgs::AddCO2Source::Response &res)
+  {
+    //!< Sanity check for the source
+    stdr_msgs::CO2Source new_source = req.newSource;
+    if(_CO2SourceMap.find(new_source.id) != _CO2SourceMap.end())
+    { //!< A source exists with the same id
+      res.success = false;
+      res.message = "Duplicate CO2 is";
+      return false;
+    }
+    
+    //!< Add CO2 source to the environment 
+    _CO2SourceMap.insert(std::pair<std::string, stdr_msgs::CO2Source>(
+      new_source.id, new_source));
+    
+    //!< Publish the new source list
+    stdr_msgs::CO2SourceVector CO2SourceList;
+    for(CO2SourceMapIt it = _CO2SourceMap.begin() 
+      ; it != _CO2SourceMap.end() ; it++)
+    {
+      CO2SourceList.co2_sources.push_back(it->second);
+    }
+    _CO2SourceVectorPublisher.publish(CO2SourceList);
+    
+    //!< Return success
+    res.success = true;
+    return true;
+  }
+  
+  /**
+  @brief Service callback for adding new thermal source to the environment
+  **/
+  bool Server::addThermalSourceCallback(
+    stdr_msgs::AddThermalSource::Request &req, 
+    stdr_msgs::AddThermalSource::Response &res)
+  {
+    //!< Sanity check for the source
+    stdr_msgs::ThermalSource new_source = req.newSource;
+    if(_thermalSourceMap.find(new_source.id) != _thermalSourceMap.end())
+    { //!< A source exists with the same id
+      res.success = false;
+      res.message = "Duplicate thermal source is";
+      return false;
+    }
+    
+    //!< Add source to the environment 
+    _thermalSourceMap.insert(std::pair<std::string, stdr_msgs::ThermalSource>(
+      new_source.id, new_source));
+    
+    //!< Publish the new source list
+    stdr_msgs::ThermalSourceVector thermalSourceList;
+    for(ThermalSourceMapIt it = _thermalSourceMap.begin() 
+      ; it != _thermalSourceMap.end() ; it++)
+    {
+      thermalSourceList.thermal_sources.push_back(it->second);
+    }
+    _thermalSourceVectorPublisher.publish(thermalSourceList);
+    
+    //!< Return success
+    res.success = true;
+    return true;
+  }
+  
+  /**
+  @brief Service callback for adding new sound source to the environment
+  **/
+  bool Server::addSoundSourceCallback(
+    stdr_msgs::AddSoundSource::Request &req, 
+    stdr_msgs::AddSoundSource::Response &res)
+  {
+    //!< Sanity check for the source
+    stdr_msgs::SoundSource new_source = req.newSource;
+    if(_soundSourceMap.find(new_source.id) != _soundSourceMap.end())
+    { //!< A source exists with the same id
+      res.success = false;
+      res.message = "Duplicate sound source is";
+      return false;
+    }
+    
+    //!< Add source to the environment 
+    _soundSourceMap.insert(std::pair<std::string, stdr_msgs::SoundSource>(
+      new_source.id, new_source));
+    
+    //!< Publish the new source list
+    stdr_msgs::SoundSourceVector soundSourceList;
+    for(SoundSourceMapIt it = _soundSourceMap.begin() 
+      ; it != _soundSourceMap.end() ; it++)
+    {
+      soundSourceList.sound_sources.push_back(it->second);
+    }
+    _soundSourceVectorPublisher.publish(soundSourceList);
+    
+    //!< Return success
+    res.success = true;
+    return true;
+  }
+  
+  /**
+  @brief Service callback for deleting an rfid tag from the environment
+  **/
+  bool Server::deleteRfidTagCallback(
+    stdr_msgs::DeleteRfidTag::Request &req, 
+    stdr_msgs::DeleteRfidTag::Response &res)
+  {
+    
+    std::string name = req.name;
+    if(_rfidTagMap.find(name) != _rfidTagMap.end())
+    {
+      _rfidTagMap.erase(name);
+      
+      //!< Publish the new RFID tag list
+      stdr_msgs::RfidTagVector rfidTagList;
+      for(RfidTagMapIt it = _rfidTagMap.begin() ; 
+        it != _rfidTagMap.end() ; it++)
+      {
+        rfidTagList.rfid_tags.push_back(it->second);
+      }
+      _rfidTagVectorPublisher.publish(rfidTagList);
+    }
+    else  //!< Tag does not exist
+    {
+      return false;
+    }
+    return true;
+  }
+  
+  /**
+  @brief Service callback for deleting a CO2 source from the environment
+  **/
+  bool Server::deleteCO2SourceCallback(
+    stdr_msgs::DeleteCO2Source::Request &req, 
+    stdr_msgs::DeleteCO2Source::Response &res)
+  {
+    
+    std::string name = req.name;
+    if(_CO2SourceMap.find(name) != _CO2SourceMap.end())
+    {
+      _CO2SourceMap.erase(name);
+      
+      //!< Publish the new sources list
+      stdr_msgs::CO2SourceVector CO2SourceList;
+      for(CO2SourceMapIt it = _CO2SourceMap.begin() ; 
+        it != _CO2SourceMap.end() ; it++)
+      {
+        CO2SourceList.co2_sources.push_back(it->second);
+      }
+      _CO2SourceVectorPublisher.publish(CO2SourceList);
+    }
+    else  //!< Source does not exist
+    {
+      return false;
+    }
+    return true;
+  }
+  
+  /**
+  @brief Service callback for deleting a thermal source from the environment
+  **/
+  bool Server::deleteThermalSourceCallback(
+    stdr_msgs::DeleteThermalSource::Request &req, 
+    stdr_msgs::DeleteThermalSource::Response &res)
+  {
+    
+    std::string name = req.name;
+    if(_thermalSourceMap.find(name) != _thermalSourceMap.end())
+    {
+      _thermalSourceMap.erase(name);
+      
+      //!< Publish the new sources list
+      stdr_msgs::ThermalSourceVector thermalSourceList;
+      for(ThermalSourceMapIt it = _thermalSourceMap.begin() ; 
+        it != _thermalSourceMap.end() ; it++)
+      {
+        thermalSourceList.thermal_sources.push_back(it->second);
+      }
+      _thermalSourceVectorPublisher.publish(thermalSourceList);
+    }
+    else  //!< Source does not exist
+    {
+      return false;
+    }
+    return true;
+  }
+  
+  /**
+  @brief Service callback for deleting a sound source from the environment
+  **/
+  bool Server::deleteSoundSourceCallback(
+    stdr_msgs::DeleteSoundSource::Request &req, 
+    stdr_msgs::DeleteSoundSource::Response &res)
+  {
+    
+    std::string name = req.name;
+    if(_soundSourceMap.find(name) != _soundSourceMap.end())
+    {
+      _soundSourceMap.erase(name);
+      
+      //!< Publish the new sources list
+      stdr_msgs::SoundSourceVector soundSourceList;
+      for(SoundSourceMapIt it = _soundSourceMap.begin() ; 
+        it != _soundSourceMap.end() ; it++)
+      {
+        soundSourceList.sound_sources.push_back(it->second);
+      }
+      _soundSourceVectorPublisher.publish(soundSourceList);
+    }
+    else  //!< Source does not exist
+    {
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -136,8 +439,15 @@ namespace stdr_server {
   void Server::spawnRobotCallback(
     const stdr_msgs::SpawnRobotGoalConstPtr& goal) 
   {
-    
     stdr_msgs::SpawnRobotResult result;
+    
+    std::string f_id;
+    if(hasDublicateFrameIds(goal->description, f_id))
+    {
+      result.message = std::string("Double frame_id :") + f_id;
+      _spawnRobotServer.setAborted(result);
+      return;
+    }
     
     if (addNewRobot(goal->description, &result)) {
       _spawnRobotServer.setSucceeded(result);
@@ -153,7 +463,7 @@ namespace stdr_server {
       _robotsPublisher.publish(msg);
       return;
     }
-    
+
     _spawnRobotServer.setAborted();
   }
 
@@ -227,6 +537,7 @@ namespace stdr_server {
     stdr_msgs::RobotIndexedMsg namedRobot;
     
     namedRobot.robot = description;
+    
     namedRobot.name = "/robot" + boost::lexical_cast<std::string>(_id++);
     
     _robotMap.insert( std::make_pair(namedRobot.name, namedRobot) );
@@ -287,6 +598,85 @@ namespace stdr_server {
       name.c_str());
     
     result->success = false;
+    return false;
+  }
+  
+  bool Server::hasDublicateFrameIds(const stdr_msgs::RobotMsg& robot,
+    std::string &f_id)
+  {
+    std::set<std::string> f_ids;
+    for(unsigned int i = 0 ; i < robot.laserSensors.size() ; i++)
+    {
+      if(f_ids.find(robot.laserSensors[i].frame_id) == f_ids.end())
+      {
+        f_ids.insert(robot.laserSensors[i].frame_id);
+      }
+      else
+      {
+        f_id = robot.laserSensors[i].frame_id;
+        return true;
+      }
+    }
+    for(unsigned int i = 0 ; i < robot.sonarSensors.size() ; i++)
+    {
+      if(f_ids.find(robot.sonarSensors[i].frame_id) == f_ids.end())
+      {
+        f_ids.insert(robot.sonarSensors[i].frame_id);
+      }
+      else
+      {
+        f_id = robot.sonarSensors[i].frame_id;
+        return true;
+      }
+    }
+    for(unsigned int i = 0 ; i < robot.rfidSensors.size() ; i++)
+    {
+      if(f_ids.find(robot.rfidSensors[i].frame_id) == f_ids.end())
+      {
+        f_ids.insert(robot.rfidSensors[i].frame_id);
+      }
+      else
+      {
+        f_id = robot.rfidSensors[i].frame_id;
+        return true;
+      }
+    }
+    for(unsigned int i = 0 ; i < robot.co2Sensors.size() ; i++)
+    {
+      if(f_ids.find(robot.co2Sensors[i].frame_id) == f_ids.end())
+      {
+        f_ids.insert(robot.co2Sensors[i].frame_id);
+      }
+      else
+      {
+        f_id = robot.co2Sensors[i].frame_id;
+        return true;
+      }
+    }
+    for(unsigned int i = 0 ; i < robot.soundSensors.size() ; i++)
+    {
+      if(f_ids.find(robot.soundSensors[i].frame_id) == f_ids.end())
+      {
+        f_ids.insert(robot.soundSensors[i].frame_id);
+      }
+      else
+      {
+        f_id = robot.soundSensors[i].frame_id;
+        return true;
+      }
+    }
+    for(unsigned int i = 0 ; i < robot.thermalSensors.size() ; i++)
+    {
+      if(f_ids.find(robot.thermalSensors[i].frame_id) == f_ids.end())
+      {
+        f_ids.insert(robot.thermalSensors[i].frame_id);
+      }
+      else
+      {
+        f_id = robot.thermalSensors[i].frame_id;
+        return true;
+      }
+    }
     return false;
   }
 
