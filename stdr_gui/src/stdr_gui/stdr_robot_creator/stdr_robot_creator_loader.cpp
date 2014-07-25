@@ -36,6 +36,9 @@ namespace stdr_gui
     sonarPropLoader(argc,argv),
     kinematicPropLoader(argc,argv),
     rfidAntennaPropLoader(argc,argv),
+    co2SensorPropLoader(argc,argv),
+    thermalSensorPropLoader(argc,argv),
+    soundSensorPropLoader(argc,argv),
     argc_(argc),
     argv_(argv)
   {
@@ -99,7 +102,10 @@ namespace stdr_gui
     robotNode.setText(0,"Robot");
     lasersNode.setText(0,"Lasers");
     sonarsNode.setText(0,"Sonars");
-    //~ rfidAntennasNode.setText(0,"Rfid Antennas");
+    rfidAntennasNode.setText(0,"Rfid readers");
+    co2SensorsNode.setText(0,"CO2 sensors");
+    thermalSensorsNode.setText(0,"Thermal sensors");
+    soundSensorsNode.setText(0,"Sound sensors");
     //~ kinematicNode.setText(0,"Kinematic");
     
     robotNode.setIcon(2,editIcon);
@@ -107,13 +113,19 @@ namespace stdr_gui
     robotNode.setIcon(4,loadIcon);
     lasersNode.setIcon(2,addIcon);
     sonarsNode.setIcon(2,addIcon);
-    //~ rfidAntennasNode.setIcon(2,addIcon);
+    rfidAntennasNode.setIcon(2,addIcon);
+    co2SensorsNode.setIcon(2,addIcon);
+    thermalSensorsNode.setIcon(2,addIcon);
+    soundSensorsNode.setIcon(2,addIcon);
     //~ kinematicNode.setIcon(2,editIcon);
     
     robotTreeWidget->addTopLevelItem(&robotNode);
     robotTreeWidget->addTopLevelItem(&lasersNode);
     robotTreeWidget->addTopLevelItem(&sonarsNode);
-    //~ robotTreeWidget->addTopLevelItem(&rfidAntennasNode);
+    robotTreeWidget->addTopLevelItem(&rfidAntennasNode);
+    robotTreeWidget->addTopLevelItem(&co2SensorsNode);
+    robotTreeWidget->addTopLevelItem(&thermalSensorsNode);
+    robotTreeWidget->addTopLevelItem(&soundSensorsNode);
     //~ robotTreeWidget->addTopLevelItem(&kinematicNode);
 
     robotInfoOrientation.setText(0,"Orientation");
@@ -129,7 +141,10 @@ namespace stdr_gui
     robotNode.setExpanded(true);
     lasersNode.setExpanded(true);
     sonarsNode.setExpanded(true);
-    //~ rfidAntennasNode.setExpanded(true);
+    rfidAntennasNode.setExpanded(true);
+    co2SensorsNode.setExpanded(true);
+    thermalSensorsNode.setExpanded(true);
+    soundSensorsNode.setExpanded(true);
     //~ kinematicNode.setExpanded(true);
     
     robotTreeWidget->resizeColumnToContents(0);
