@@ -1,0 +1,12 @@
+Source: ros-hydro-stdr-simulator
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-catkin
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-hydro-stdr-simulator
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-stdr-gui, ros-hydro-stdr-launchers, ros-hydro-stdr-msgs, ros-hydro-stdr-parser, ros-hydro-stdr-resources, ros-hydro-stdr-robot, ros-hydro-stdr-samples, ros-hydro-stdr-server
+Description: A simple, flexible and scalable 2D multi-robot simulator.
