@@ -1,0 +1,12 @@
+Source: ros-indigo-stdr-parser
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), libtinyxml-dev, libyaml-cpp-dev, ros-indigo-catkin, ros-indigo-cmake-modules, ros-indigo-roscpp, ros-indigo-roslib, ros-indigo-stdr-msgs
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-indigo-stdr-parser
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libtinyxml-dev, libyaml-cpp-dev, ros-indigo-roscpp, ros-indigo-roslib, ros-indigo-stdr-msgs
+Description: Provides a library to STDR Simulator, to parse yaml and xml description files.
