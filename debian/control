@@ -1,0 +1,12 @@
+Source: ros-indigo-stdr-launchers
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-indigo-stdr-launchers
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-rviz, ros-indigo-stdr-gui, ros-indigo-stdr-robot, ros-indigo-stdr-server
+Description: Launch files, to easily bringup server, robots, guis
