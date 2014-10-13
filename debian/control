@@ -1,0 +1,12 @@
+Source: ros-indigo-stdr-robot
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-actionlib, ros-indigo-catkin, ros-indigo-geometry-msgs, ros-indigo-nav-msgs, ros-indigo-nodelet, ros-indigo-roscpp, ros-indigo-sensor-msgs, ros-indigo-stdr-msgs, ros-indigo-stdr-parser, ros-indigo-tf
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-indigo-stdr-robot
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-actionlib, ros-indigo-geometry-msgs, ros-indigo-nav-msgs, ros-indigo-nodelet, ros-indigo-roscpp, ros-indigo-sensor-msgs, ros-indigo-stdr-msgs, ros-indigo-stdr-parser, ros-indigo-tf
+Description: Provides robot, sensor implementation, using nodelets for stdr_server to load them.
