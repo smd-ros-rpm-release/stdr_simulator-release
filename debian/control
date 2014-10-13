@@ -1,0 +1,12 @@
+Source: ros-indigo-stdr-simulator
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-indigo-stdr-simulator
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-stdr-gui, ros-indigo-stdr-launchers, ros-indigo-stdr-msgs, ros-indigo-stdr-parser, ros-indigo-stdr-resources, ros-indigo-stdr-robot, ros-indigo-stdr-samples, ros-indigo-stdr-server
+Description: A simple, flexible and scalable 2D multi-robot simulator.
