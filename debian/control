@@ -1,0 +1,12 @@
+Source: ros-indigo-stdr-samples
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin, ros-indigo-geometry-msgs, ros-indigo-nav-msgs, ros-indigo-roscpp, ros-indigo-sensor-msgs, ros-indigo-stdr-msgs, ros-indigo-tf
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-indigo-stdr-samples
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-geometry-msgs, ros-indigo-nav-msgs, ros-indigo-roscpp, ros-indigo-sensor-msgs, ros-indigo-stdr-msgs, ros-indigo-tf
+Description: Provides sample codes to demonstrate STDR simulator functionalities.
