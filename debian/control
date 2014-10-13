@@ -1,0 +1,12 @@
+Source: ros-indigo-stdr-gui
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), libqt4-dev, ros-indigo-catkin, ros-indigo-map-server, ros-indigo-nav-msgs, ros-indigo-roscpp, ros-indigo-roslib, ros-indigo-sensor-msgs, ros-indigo-stdr-msgs, ros-indigo-stdr-parser, ros-indigo-stdr-robot, ros-indigo-stdr-server, ros-indigo-tf
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-indigo-stdr-gui
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libqt4-dbus, libqt4-network, libqt4-script, libqt4-test, libqt4-xml, libqtcore4, ros-indigo-map-server, ros-indigo-nav-msgs, ros-indigo-roscpp, ros-indigo-roslib, ros-indigo-sensor-msgs, ros-indigo-stdr-msgs, ros-indigo-stdr-parser, ros-indigo-stdr-robot, ros-indigo-stdr-server, ros-indigo-tf
+Description: A gui in Qt for visualizing purposes in STDR Simulator.
