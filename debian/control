@@ -1,0 +1,12 @@
+Source: ros-indigo-stdr-server
+Section: misc
+Priority: extra
+Maintainer: Chris Zalidis <zalidis@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-actionlib, ros-indigo-catkin, ros-indigo-map-server, ros-indigo-nav-msgs, ros-indigo-nodelet, ros-indigo-roscpp, ros-indigo-stdr-msgs, ros-indigo-tf
+Homepage: http://stdr-simulator-ros-pkg.github.io
+Standards-Version: 3.9.2
+
+Package: ros-indigo-stdr-server
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-actionlib, ros-indigo-nav-msgs, ros-indigo-nodelet, ros-indigo-roscpp, ros-indigo-stdr-msgs, ros-indigo-stdr-robot, ros-indigo-tf
+Description: Implements synchronization and coordination functionalities of STDR Simulator.
